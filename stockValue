@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+double shareValue(int whole_par, int numera_par, int denomi_par);
+bool repeat();
+int fractionalize(int whole_par, int numera_par, int denomi_par);
+int main()
+{
+	using namespace std;
+	string stockName;
+	char userAnsw;
+	double holdingsValue;
+	int shareQuant;
+	int numerPart;
+	int denomPart;
+	int wholePart;
+	bool done = false;
+	while (done == false)
+	{
+		
+		
+		cout << "\nWelcome to the stock share calculator 5000.1245!\n"
+			<< "=================================================\n"
+			<< "\nInput one stock at a time."
+			<< "\nYou may continue to another stock after the first has been calculated.\n"
+			<< "\nEnter the name of your stock you would like to calculate: ";
+			cin >> stockName;
+			cout << "\nENTER the whole number portion of the value."
+			<< " :>> ";
+			cin >> wholePart;
+			cout << "\nthen the numerator of the fractional portion."
+			<< " :>> ";
+			cin >> numerPart;
+			cout << "\nthen the denominator of the fractional portion."
+				<< " :>> ";
+			cin >> denomPart;
+		cout << "\nNow ENTER the quantity of shares: ";
+		cin >> shareQuant;
+
+		holdingsValue = shareValue(wholePart, numerPart, denomPart) * shareQuant;
+		cout << "\n" << shareQuant << " shares of " << stockName << " at " << fractionalize(wholePart,numerPart,denomPart) << "/" << denomPart << " dollars a share \n"
+			<< "your stock is worth " << holdingsValue << " dollars";
+		
+		bool done = repeat();
+		
+
+	}
+	return 0;
+}
+	double shareValue(int whole_par, int numera_par, int denomi_par)
+	{
+		return whole_par + (numera_par / static_cast<double>(denomi_par));
+	}
+	bool repeat()
+	{
+		using namespace std;
+		while (bool gotResponse = false)
+		{
+			char userAnsw;
+			cout << "\n\nWould you like the Calculatro 5000.1245 to do another calculation? (y/n): ";
+			cin >> userAnsw;
+			if ((userAnsw == 'y') || (userAnsw == 'Y'))
+			{
+				gotResponse = true;
+				return false;
+			}
+			else if ((userAnsw == 'n') || (userAnsw == 'N'))
+			{
+				gotResponse = true;
+				return true;
+			}
+			else
+				gotResponse = false;
+		}
+		
+	
+	
+	}
+	int fractionalize(int whole_par, int numera_par, int denomi_par)
+	{
+		return whole_par * denomi_par + numera_par;
+	}
+
