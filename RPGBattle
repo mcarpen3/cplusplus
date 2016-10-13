@@ -1,0 +1,102 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+//Constant represents the number of desired players.
+const int number_of_players = 4;
+//
+void play_game(int HP_par[], int attack_par);
+int displayPlayers_and_attack(int& round_par, int HP_par[]);
+void attackWho(int HP_par[], int attack_par);
+bool isAlive(int HP_par[],bool alive_par[], int player_par);
+void check_end_game(int HP_par);
+
+int main()
+{
+	srand(time(NULL));
+	int round = 1, HP[number_of_players],attack,players = number_of_players;
+	
+	for (int i = 0; i < number_of_players; i++)
+		HP[i] = 100;
+	bool done = false;
+	while (done == false)
+	{
+		int attack = displayPlayers_and_attack(round, HP);
+		play_game(HP,attack);
+	}
+
+}
+int displayPlayers_and_attack(int& round_par, int HP_par[])
+{
+	using namespace std;
+	cout << "Round number " << round_par << "\n";
+	for (int i = 0; i < number_of_players; i++)
+	{
+		cout << "Player" << i + 1 << "'s health is " << HP_par[i];
+		cout << endl;
+	}
+	int attackChoice;
+	while (bool validChoice = false)
+	{
+		cout << "\nEnter a player number you would like to attack out of " << number_of_players
+			<< "\nby entering the number of the desired player now: ";
+		
+		cin >> attackChoice;
+		if (attackChoice == 1)
+			cout << "\nYou are player1. Choose again.\n";
+		else if (attackChoice > 1 && attackChoice <= number_of_players)
+			validChoice = true;
+		else
+			cout << "\nInvalid Response!\n";
+	}
+	round_par++;
+	return attackChoice - 1;
+
+
+}
+void play_game(int HP_par[], int attack_par)
+{
+	using namespace std;
+	int victim = attack_par + 1;
+	bool alive[number_of_players];
+	for (int i = 0; i < number_of_players; i++)
+	{
+		alive[i] = true;
+	}
+	if(attack_par!=0)
+	cout << "You attack player " << victim << " !\n";
+	else
+	attackWho(HP_par, attack_par);
+	for (int i = 1; i <= 3; i++)
+	{
+		int random = rand() % 4;
+		if (random != i && isAlive(HP_par,random)==true)
+			attackWho(HP_par, random);
+		else
+			cout << "\nPlayer" << i << "'s attack was unsuccessful.\n";
+	}
+
+}
+
+void attackWho(int HP_par[],int attack_par)
+{
+	HP_par[attack_par] -= 5;
+}
+bool isAlive(int HP_par[], bool alive_par[], int player_par)
+{
+	
+	
+	for (int i = 0; i < number_of_players; i++)
+	{
+		if (HP_par[i] > 0)
+			alive_par[i] = true;
+		else
+			alive_par[i] = false;
+	}
+
+	return alive_par[victim_par];
+
+}
+void check_end_game(int HP_par)
+{
+	
+}
